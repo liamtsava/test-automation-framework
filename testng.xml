@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Functional" verbose="1">
+
+	<!-- RUNTIME CONFIG -->
+	<parameter name="url" value="http://10.6.183.64:3010/mentoring-portal/"></parameter> <!-- site url -->
+
+	<test name="Smoke">
+		<packages>
+			<package name="automation.core.test" />
+		</packages>
+	</test>
+</suite>
