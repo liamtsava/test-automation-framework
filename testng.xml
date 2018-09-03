@@ -2,12 +2,14 @@
 
 <suite name="Functional" verbose="1">
 
-	<!-- RUNTIME CONFIG -->
+	<!-- DEFAULT RUNTIME CONFIG -->
 	<parameter name="url" value="http://10.6.183.64:3010/mentoring-portal/"></parameter> <!-- site url -->
-
+	<parameter name="group" value="FULL"></parameter> 
+	<parameter name="browserType" value="CHROME"></parameter>  
+	
 	<test name="Smoke">
 		<packages>
-			<package name="automation.core.test" />
+			<package name="automation.core.test.*" />
 		</packages>
 	</test>
 </suite>

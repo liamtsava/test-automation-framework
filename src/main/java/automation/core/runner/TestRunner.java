@@ -5,10 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
 import org.testng.xml.Parser;
@@ -16,38 +13,39 @@ import org.testng.xml.XmlSuite;
 
 import automation.core.listener.SuiteListener;
 import automation.core.listener.TestListener;
-import automation.core.runner.cli.BrowserCliOption;
-import automation.core.runner.cli.GroupNameCliOption;
+import automation.core.runner.cli.CliManager;
+import automation.core.runner.cli.option.BrowserCliOption;
+import automation.core.runner.cli.option.GroupNameCliOption;
 
 public class TestRunner {
 
     public static void main(String[] args) throws Exception {
 
-        Options options = new Options();
-
-        options.addOption(new BrowserCliOption());
-        options.addOption(new GroupNameCliOption());
-
-        CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = parser.parse(options, args);
-        // String browser = cmd.getOptionValue("b") !=null? cmd.getOptionValue("b") : "CHROME";
-        String group = cmd.getOptionValue("groupName") != null ? cmd.getOptionValue("groupName") : "FULL";
+        CliManager cliManager = new CliManager(args);
+        addCommandLineOptions(cliManager);
 
         TestNG testng = new TestNG();
 
         List<XmlSuite> suites = new ArrayList<XmlSuite>(new Parser().parse());
         testng.setXmlSuites(suites);
 
-        TestRunParameters.setDefaultParams(extractDefaultRunParams(suites));
+        TestRunParameters.setParams(extractDefaultRunParams(suites));
+        TestRunParameters.setParams(cliManager.parseParameters());
 
         List<Class<? extends ITestNGListener>> listeners = new ArrayList<>();
         listeners.add(SuiteListener.class);
         listeners.add(TestListener.class);
         testng.setListenerClasses(listeners);
 
-        testng.setGroups(group);
+        testng.setGroups(TestRunParameters.getGroup());
 
         testng.run();
+    }
+
+    private static void addCommandLineOptions(CliManager cliManager) throws ParseException {
+
+        cliManager.addCliParameter(new BrowserCliOption());
+        cliManager.addCliParameter(new GroupNameCliOption());
     }
 
     private static Map<String, String> extractDefaultRunParams(List<XmlSuite> suites) {

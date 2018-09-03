@@ -1,31 +1,33 @@
 package automation.core.listener;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 public class TestListener implements ITestListener {
 
+    private static final Logger LOGGER = LogManager.getLogger(TestListener.class);
+
     public void onTestStart(ITestResult result) {
-        System.out.println("Starting test: " + result.getMethod().getMethodName());
+        LOGGER.info("Starting test: " + result.getMethod().getMethodName());
     }
 
     public void onTestSuccess(ITestResult result) {
-        System.out.println("SUCCESS");
+        LOGGER.info("SUCCESS: " + result.getMethod().getMethodName());
     }
 
     public void onTestFailure(ITestResult result) {
-        System.out.println("FAILURE");
+        LOGGER.info("FAILURE: " + result.getMethod().getMethodName());
     }
 
     public void onTestSkipped(ITestResult result) {
-        System.out.println("SKIPPED");
-        
+        LOGGER.info("SKIPPED: " + result.getMethod().getMethodName());
     }
 
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
         // TODO Auto-generated method stub
-        
     }
 
     public void onStart(ITestContext context) {
@@ -34,7 +36,6 @@ public class TestListener implements ITestListener {
 
     public void onFinish(ITestContext context) {
         // TODO Auto-generated method stub
-        
     }
 
 }
