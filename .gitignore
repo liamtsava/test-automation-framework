@@ -1,5 +1,7 @@
 target/
 test-output/
+allure-report/
+allure-results/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

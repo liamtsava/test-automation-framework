@@ -18,7 +18,7 @@ public class FunctionalTestModule implements Module {
     }
     
     @Provides
-    public WelcomePage provideAbstractHomepage(WebDriver driver) {
+    public WelcomePage provideWelcomePage(WebDriver driver) {
         return new WelcomePage(driver);
     }
 

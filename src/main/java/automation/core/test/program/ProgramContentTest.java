@@ -13,6 +13,7 @@ import automation.core.runner.Config.Group;
 import automation.core.test.BaseTest;
 import automation.core.ui.page.ProgramPage;
 import automation.core.ui.page.WelcomePage;
+import io.qameta.allure.Description;
 
 @Guice(modules = FunctionalTestModule.class)
 public class ProgramContentTest extends BaseTest {
@@ -24,6 +25,7 @@ public class ProgramContentTest extends BaseTest {
     private ProgramPage programPage;
 
     @Test(groups = { Group.FULL })
+    @Description("Check content of program page.")
     public void contentTest() {
 
         welcomePage.open();
