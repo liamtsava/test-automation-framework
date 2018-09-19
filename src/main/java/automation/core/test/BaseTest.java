@@ -1,40 +1,36 @@
 package automation.core.test;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Guice;
 import org.testng.asserts.SoftAssert;
 
 import com.google.inject.Inject;
 
-import automation.core.runner.TestRunParameters;
+import automation.core.driver.DriverManager;
+import automation.core.guice.module.FunctionalTestModule;
+import automation.core.ui.page.WelcomePage;
 
+@Guice(modules = FunctionalTestModule.class)
 public class BaseTest {
 
     @Inject
-    protected WebDriver driver;
+    protected DriverManager driverManager;
+
+    protected WelcomePage welcomePage;
 
     protected SoftAssert softAssert;
 
-    protected String url;
-
-    @BeforeSuite(alwaysRun = true)
-    public void beforeSuiteSetUp() {
-        url = TestRunParameters.getUrl();
-    }
-
-    @BeforeTest(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     public void beforeTestSetUp() {
         softAssert = new SoftAssert();
+        welcomePage = new WelcomePage(driverManager);
     }
 
-    @AfterTest(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void afterTestCleanUp() {
         // just a guarantee in case if it was forgotten in test, but envoke assertAll method in test
         softAssert.assertAll();
-
-        driver.quit();
     }
 
 }

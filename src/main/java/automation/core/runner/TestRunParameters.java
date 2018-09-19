@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import automation.core.runner.cli.CliParam;
+
 public class TestRunParameters {
 
     private static final Logger LOGGER = LogManager.getLogger(TestRunParameters.class);
@@ -50,6 +52,10 @@ public class TestRunParameters {
             LOGGER.debug("Set run parameter: {} = {}", mapEntry.getKey(), mapEntry.getValue());
             params.put(mapEntry.getKey(), mapEntry.getValue());
         }
+    }
+
+    public static String getParam(CliParam param) {
+        return params.get(param.getName());
     }
 
 }

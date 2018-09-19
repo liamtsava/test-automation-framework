@@ -1,35 +1,31 @@
 package automation.core.reporting;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import automation.core.runner.constant.FrameworkConstant;
+import automation.core.runner.util.FileUtil;
 
 public final class ReportUtils {
 
     private static final Logger LOGGER = LogManager.getLogger(ReportUtils.class);
 
-    private static final String RESULTS_DIR = System.getProperty("user.dir") + File.separator + "allure-results";
-
-    private static final String REPORT_DIR = System.getProperty("user.dir") + File.separator + "allure-report";
-
-    public static void cleanReportDirectory() {
-        LOGGER.info("Clearing report directory...");
-        FileUtils.deleteQuietly(Paths.get(REPORT_DIR).toFile());
-        FileUtils.deleteQuietly(Paths.get(RESULTS_DIR).toFile());
+    public static void removeReportArtifacts() {
+        LOGGER.info("Remove report artifacts.");
+        FileUtil.deleteQuitelySubdirectory(FrameworkConstant.REPORT_FOLDER);
+        FileUtil.deleteQuitelySubdirectory(FrameworkConstant.RESULTS_FOLDER);
     }
 
     public static void generateReport() {
         CommandLine commandLine = new CommandLine("allure");
         commandLine.addArgument("generate");
-        commandLine.addArgument(RESULTS_DIR);
+        commandLine.addArgument(FileUtil.getDirectory(FrameworkConstant.RESULTS_FOLDER));
         commandLine.addArgument("-o");
-        commandLine.addArgument(REPORT_DIR);
+        commandLine.addArgument(FileUtil.getDirectory(FrameworkConstant.REPORT_FOLDER));
         DefaultExecutor executor = new DefaultExecutor();
         try {
             executor.execute(commandLine);

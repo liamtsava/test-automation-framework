@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.cli.ParseException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
 import org.testng.xml.Parser;
 import org.testng.xml.XmlSuite;
 
+import automation.core.driver.DriverManager;
 import automation.core.listener.SuiteListener;
 import automation.core.listener.TestListener;
 import automation.core.runner.cli.CliManager;
@@ -19,27 +22,36 @@ import automation.core.runner.cli.option.GroupNameCliOption;
 
 public class TestRunner {
 
+    private static final Logger LOGGER = LogManager.getLogger(TestRunner.class);
+
     public static void main(String[] args) throws Exception {
 
-        CliManager cliManager = new CliManager(args);
-        addCommandLineOptions(cliManager);
+        try {
+            CliManager cliManager = new CliManager(args);
+            addCommandLineOptions(cliManager);
 
-        TestNG testng = new TestNG();
+            TestNG testng = new TestNG();
 
-        List<XmlSuite> suites = new ArrayList<XmlSuite>(new Parser().parse());
-        testng.setXmlSuites(suites);
+            List<XmlSuite> suites = new ArrayList<XmlSuite>(new Parser().parse());
+            testng.setXmlSuites(suites);
 
-        TestRunParameters.setParams(extractDefaultRunParams(suites));
-        TestRunParameters.setParams(cliManager.parseParameters());
+            TestRunParameters.setParams(extractDefaultRunParams(suites));
+            TestRunParameters.setParams(cliManager.parseParameters());
 
-        List<Class<? extends ITestNGListener>> listeners = new ArrayList<>();
-        listeners.add(SuiteListener.class);
-        listeners.add(TestListener.class);
-        testng.setListenerClasses(listeners);
+            List<Class<? extends ITestNGListener>> listeners = new ArrayList<>();
+            listeners.add(SuiteListener.class);
+            listeners.add(TestListener.class);
+            testng.setListenerClasses(listeners);
 
-        testng.setGroups(TestRunParameters.getGroup());
+            testng.setGroups(TestRunParameters.getGroup());
 
-        testng.run();
+            testng.run();
+        } catch (Exception e) {
+            LOGGER.fatal(e.getMessage(), e);
+            throw e;
+        } finally {
+            DriverManager.quitAll();
+        }
     }
 
     private static void addCommandLineOptions(CliManager cliManager) throws ParseException {

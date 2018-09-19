@@ -2,9 +2,13 @@ package automation.core.listener;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import automation.core.driver.DriverManager;
+import automation.core.driver.util.ScreenshotUtil;
 
 public class TestListener implements ITestListener {
 
@@ -20,6 +24,8 @@ public class TestListener implements ITestListener {
 
     public void onTestFailure(ITestResult result) {
         LOGGER.info("FAILURE: " + result.getMethod().getMethodName());
+        WebDriver driver = DriverManager.getInstance().getDriver();
+        ScreenshotUtil.takeScreenshot(driver);
     }
 
     public void onTestSkipped(ITestResult result) {
