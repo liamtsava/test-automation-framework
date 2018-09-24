@@ -4,6 +4,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import automation.core.driver.DriverManager;
+import automation.core.reporting.Logger;
 import automation.core.runner.TestRunParameters;
 import automation.core.ui.AbstractPage;
 import ru.yandex.qatools.htmlelements.element.Button;
@@ -28,6 +29,7 @@ public class WelcomePage extends AbstractPage {
     private Button exploreNewBtn;
 
     public void open() {
+        Logger.logMessage("Open welcome page.");
         driver.get(TestRunParameters.getUrl());
     }
 
@@ -40,6 +42,7 @@ public class WelcomePage extends AbstractPage {
     }
 
     public ProgramPage clickExploreNewBtn() {
+        Logger.logMessage("Open program page.");
         exploreNewBtn.click();
         return new ProgramPage(driverManager);
     }

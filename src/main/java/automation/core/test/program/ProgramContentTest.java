@@ -23,6 +23,6 @@ public class ProgramContentTest extends BaseTest {
         welcomePage.open();
 
         programPage = welcomePage.clickExploreNewBtn();
-        Assert.assertFalse(programPage.isTitleVisible(), "Incorrect wasn't found.");
+        Assert.assertFalse(programPage.isTitleVisible(), "Incorrect page title.");
     }
 }

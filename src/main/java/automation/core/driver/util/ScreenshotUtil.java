@@ -26,9 +26,10 @@ public final class ScreenshotUtil {
     public static File takeScreenshot(WebDriver driver) {
         LOGGER.info("Taking screenshot");
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        String screenshotName = String.format("Screenshot_%d_%s", System.currentTimeMillis(), RandomString.make(5) + ".png");
+        String screenshotName = String.format("Screenshot_%d_%s", System.currentTimeMillis(),
+                RandomString.make(5) + ".png");
         String screenshotPath = getScreenshotDir() + File.separator + screenshotName;
-        
+
         File screenshotFile = new File(screenshotPath);
         try {
             FileUtils.copyFile(scrFile, screenshotFile);
@@ -45,7 +46,7 @@ public final class ScreenshotUtil {
         }
         return screenshotDir;
     }
-    
+
     public static void setScreenshotDir(String dir) {
         screenshotDir = dir;
     }
