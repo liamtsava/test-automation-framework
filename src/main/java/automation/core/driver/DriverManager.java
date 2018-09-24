@@ -3,15 +3,14 @@ package automation.core.driver;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
+import automation.core.reporting.Logger;
 import automation.core.runner.BrowserType;
 
 public class DriverManager {
 
-    private static final Logger LOGGER = LogManager.getLogger(DriverManager.class);
+    private static final Logger LOGGER = new Logger(DriverManager.class);
 
     private static volatile DriverManager instance;
 

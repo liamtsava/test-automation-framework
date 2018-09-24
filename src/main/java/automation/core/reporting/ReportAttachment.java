@@ -7,14 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import io.qameta.allure.Allure;
 
 public final class ReportAttachment {
 
-    private static final Logger LOGGER = LogManager.getLogger(ReportAttachment.class);
+    private static final Logger LOGGER = new Logger(ReportAttachment.class);
 
     private ReportAttachment() {
     }

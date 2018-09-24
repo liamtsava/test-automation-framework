@@ -4,15 +4,13 @@ import java.io.IOException;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import automation.core.runner.constant.FrameworkConstant;
 import automation.core.runner.util.FileUtil;
 
 public final class ReportUtils {
 
-    private static final Logger LOGGER = LogManager.getLogger(ReportUtils.class);
+    private static final Logger LOGGER = new Logger(ReportUtils.class);
 
     public static void removeReportArtifacts() {
         LOGGER.info("Remove report artifacts.");

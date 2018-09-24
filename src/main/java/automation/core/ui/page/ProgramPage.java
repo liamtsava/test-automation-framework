@@ -4,12 +4,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import automation.core.driver.DriverManager;
+import automation.core.reporting.Logger;
 import automation.core.ui.AbstractPage;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 public class ProgramPage extends AbstractPage {
+    
+    private static final Logger LOGGER = new Logger(ProgramPage.class);
 
     public static final String TITLE = "MENTORING PROGRAM";
 

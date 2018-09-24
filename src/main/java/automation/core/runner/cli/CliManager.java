@@ -9,12 +9,12 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import automation.core.reporting.Logger;
 
 public class CliManager {
 
-    private static final Logger LOGGER = LogManager.getLogger(CliManager.class);
+    private static final Logger LOGGER = new Logger(CliManager.class);
 
     private Options options;
 

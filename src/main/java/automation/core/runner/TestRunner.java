@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.cli.ParseException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
 import org.testng.xml.Parser;
@@ -16,13 +14,14 @@ import org.testng.xml.XmlSuite;
 import automation.core.driver.DriverManager;
 import automation.core.listener.SuiteListener;
 import automation.core.listener.TestListener;
+import automation.core.reporting.Logger;
 import automation.core.runner.cli.CliManager;
 import automation.core.runner.cli.option.BrowserCliOption;
 import automation.core.runner.cli.option.GroupNameCliOption;
 
 public class TestRunner {
 
-    private static final Logger LOGGER = LogManager.getLogger(TestRunner.class);
+    private static final Logger LOGGER = new Logger(TestRunParameters.class);
 
     public static void main(String[] args) throws Exception {
 
@@ -47,7 +46,7 @@ public class TestRunner {
 
             testng.run();
         } catch (Exception e) {
-            LOGGER.fatal(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             throw e;
         } finally {
             DriverManager.quitAll();

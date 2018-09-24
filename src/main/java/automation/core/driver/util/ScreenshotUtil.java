@@ -4,19 +4,18 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
+import automation.core.reporting.Logger;
 import automation.core.runner.constant.FrameworkConstant;
 import automation.core.runner.util.FileUtil;
 import net.bytebuddy.utility.RandomString;
 
 public final class ScreenshotUtil {
 
-    private static final Logger LOGGER = LogManager.getLogger(ScreenshotUtil.class);
+    private static final Logger LOGGER = new Logger(ScreenshotUtil.class);
 
     private static String screenshotDir;
 
@@ -24,7 +23,7 @@ public final class ScreenshotUtil {
     }
 
     public static File takeScreenshot(WebDriver driver) {
-        LOGGER.info("Taking screenshot");
+        LOGGER.debug("Taking screenshot");
         File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String screenshotName = String.format("Screenshot_%d_%s", System.currentTimeMillis(),
                 RandomString.make(5) + ".png");

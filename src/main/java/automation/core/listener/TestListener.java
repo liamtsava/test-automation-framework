@@ -1,7 +1,5 @@
 package automation.core.listener;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
@@ -11,26 +9,27 @@ import org.testng.ITestResult;
 
 import automation.core.driver.DriverManager;
 import automation.core.driver.util.ScreenshotUtil;
+import automation.core.reporting.Logger;
 import automation.core.reporting.ReportAttachment;
 
 public class TestListener implements ITestListener, IInvokedMethodListener {
 
-    private static final Logger LOGGER = LogManager.getLogger(TestListener.class);
+    private static final Logger LOGGER = new Logger(TestListener.class);
 
     public void onTestStart(ITestResult result) {
-        LOGGER.info("Starting test: " + result.getMethod().getMethodName());
+        LOGGER.debug("Starting test: " + result.getMethod().getMethodName());
     }
 
     public void onTestSuccess(ITestResult result) {
-        LOGGER.info("SUCCESS: " + result.getMethod().getMethodName());
+        LOGGER.debug("SUCCESS: " + result.getMethod().getMethodName());
     }
 
     public void onTestFailure(ITestResult result) {
-        LOGGER.info("FAILURE: " + result.getMethod().getMethodName());
+        LOGGER.debug("FAILURE: " + result.getMethod().getMethodName());
     }
 
     public void onTestSkipped(ITestResult result) {
-        LOGGER.info("SKIPPED: " + result.getMethod().getMethodName());
+        LOGGER.debug("SKIPPED: " + result.getMethod().getMethodName());
     }
 
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {

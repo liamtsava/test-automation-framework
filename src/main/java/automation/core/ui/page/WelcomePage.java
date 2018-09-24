@@ -14,6 +14,8 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 
 public class WelcomePage extends AbstractPage {
 
+    private static final Logger LOGGER = new Logger(WelcomePage.class);
+
     public static final String TITLE = "TEST AUTOMATION MENTORING PORTAL";
 
     public WelcomePage(DriverManager driverManager) {
@@ -29,7 +31,7 @@ public class WelcomePage extends AbstractPage {
     private Button exploreNewBtn;
 
     public void open() {
-        Logger.logMessage("Open welcome page.");
+        LOGGER.info("Open welcome page.");
         driver.get(TestRunParameters.getUrl());
     }
 
@@ -42,7 +44,7 @@ public class WelcomePage extends AbstractPage {
     }
 
     public ProgramPage clickExploreNewBtn() {
-        Logger.logMessage("Open program page.");
+        LOGGER.info("Open program page.");
         exploreNewBtn.click();
         return new ProgramPage(driverManager);
     }
