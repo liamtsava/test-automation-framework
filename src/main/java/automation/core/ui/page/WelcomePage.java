@@ -7,6 +7,7 @@ import automation.core.driver.DriverManager;
 import automation.core.reporting.Logger;
 import automation.core.runner.TestRunParameters;
 import automation.core.ui.AbstractPage;
+import io.qameta.allure.Step;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.TextBlock;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
@@ -30,8 +31,8 @@ public class WelcomePage extends AbstractPage {
     @FindBy(css = "#toProgram")
     private Button exploreNewBtn;
 
+    @Step("Open welcome page.")
     public void open() {
-        LOGGER.info("Open welcome page.");
         driver.get(TestRunParameters.getUrl());
     }
 
@@ -43,8 +44,8 @@ public class WelcomePage extends AbstractPage {
         return exploreNewBtn.isDisplayed();
     }
 
+    @Step("Open program page.")
     public ProgramPage clickExploreNewBtn() {
-        LOGGER.info("Open program page.");
         exploreNewBtn.click();
         return new ProgramPage(driverManager);
     }

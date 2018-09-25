@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
+import io.qameta.allure.Step;
 import io.qameta.allure.model.Status;
 import io.qameta.allure.model.StepResult;
 
@@ -17,7 +18,13 @@ public class Logger {
         logger = LoggerFactory.getLogger(clazz);
     }
 
-    public void info(String logMessage) {
+    public void logTestInfo(String logMessage) {
+        addLogToAllure(logMessage);
+        logger.info(logMessage);
+    }
+    
+    @Step("{0}")
+    public void logTestInfoParametrized(String logMessage) {
         addLogToAllure(logMessage);
         logger.info(logMessage);
     }

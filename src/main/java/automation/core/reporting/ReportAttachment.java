@@ -1,13 +1,6 @@
 package automation.core.reporting;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
 
 public final class ReportAttachment {
 
@@ -16,14 +9,9 @@ public final class ReportAttachment {
     private ReportAttachment() {
     }
 
-    public static void attachScreenshot(File file) {
-        Path content = Paths.get(file.getAbsolutePath());
-        try (InputStream is = Files.newInputStream(content)) {
-            Allure.addAttachment("Screenshot", is);
-        } catch (IOException e) {
-            LOGGER.error("Failure during attaching screenshot file.", e);
-        }
-
+    @Attachment(value = "Page screenshot", type = "image/png")
+    public static byte[] attachScreenshot(byte[] screenshot) {
+        return screenshot;
     }
 
 }

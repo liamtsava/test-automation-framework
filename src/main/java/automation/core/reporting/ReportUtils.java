@@ -13,9 +13,10 @@ public final class ReportUtils {
     private static final Logger LOGGER = new Logger(ReportUtils.class);
 
     public static void removeReportArtifacts() {
-        LOGGER.info("Remove report artifacts.");
+        LOGGER.logTestInfo("Remove report artifacts.");
         FileUtil.deleteQuitelySubdirectory(FrameworkConstant.REPORT_FOLDER);
         FileUtil.deleteQuitelySubdirectory(FrameworkConstant.RESULTS_FOLDER);
+        FileUtil.deleteQuitelyFiles(FrameworkConstant.ASCPECTJ_ARTIFACTS_PATTERN);
     }
 
     public static void generateReport() {

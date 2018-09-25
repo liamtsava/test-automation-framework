@@ -26,7 +26,7 @@ public class DriverManager {
             synchronized (DriverManager.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    LOGGER.info("Create driver manager instance.");
+                    LOGGER.logTestInfo("Create driver manager instance.");
                     instance = localInstance = new DriverManager();
                 }
             }
@@ -57,7 +57,7 @@ public class DriverManager {
     }
 
     public static void quitAll() {
-        LOGGER.info("Quit all created drivers.");
+        LOGGER.logTestInfo("Quit all created drivers.");
         for (WebDriver driver : createdDrivers) {
             driver.quit();
         }

@@ -11,4 +11,6 @@ public final class FrameworkConstant {
     
     public static final String REPORT_FOLDER = "allure-report";
     
+    public static final String ASCPECTJ_ARTIFACTS_PATTERN = "ajcore.*";
+    
 }
